@@ -1,0 +1,62 @@
+{
+    "phone":"9816456561",
+    "email":"abc@gmail.com",
+    "password":"123",
+    "name":"Nitish",
+    "state":"himachal",
+    "city":"raja ka talab"
+}
+
+{
+    "phone":"9816456561",
+    "password":"123"
+}
+{
+"phone":"+919816456565"
+}
+
+
+
+authentication_classes = [TokenAuthentication]
+permission_classes=[IsAuthenticated,] 
+
+
+{
+    'jobAge':'Upto 1 year',
+    'family':'Single with no children',
+    'age':'<20 years',
+    'savingMoney':'<1',
+    'loans': '>3',
+    'living': '1',
+    'score': '3'
+}
+
+{
+    'jobAge':'Upto 2 years',
+    'family':'Single with children',
+    'age':'<25 years',
+    'savingMoney':'1-2',
+    'loans': '3',
+    'living': '2',
+    'score': '6'
+}
+
+{
+    'jobAge':'Upto 3 years',
+    'family':'Stable relation or marriage with no children',
+    'age':'<30 years',
+    'savingMoney':'2-3',
+    'loans': '2',
+    'living': '3',
+    'score': '9'
+}
+
+{
+    'jobAge':'Upto 4 years',
+    'family':'Stable relation or marriage with children',
+    'age':'>35 years',
+    'savingMoney':'>3',
+    'loans': '1',
+    'living': '>3',
+    'score': '12'
+}

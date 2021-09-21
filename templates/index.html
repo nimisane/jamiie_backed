@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Gateway</title>
+    <script src="https://cdn.dwolla.com/1/dwolla.js"></script>
+  </head>
+  <body onload="execute('{{env}}', '{{token}}', '{{phone}}', 'https://jamiie.anukai.com/payments/fundingsrc')">
+    <div id="iavContainer" class="hover"></div>
+    <script type="text/javascript">
+      function execute(env, iavToken, phone, url) {
+        console.log(env, iavToken, phone, url);
+
+        dwolla.configure(env);
+        dwolla.iav.start(
+          iavToken,
+          {
+            container: "iavContainer",
+            stylesheets: [
+              "https://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext",
+            ],
+            microDeposits: "true",
+            fallbackToMicroDeposits: "true",
+          },
+          function (err, res) {
+            console.log(
+              "Error: " +
+                JSON.stringify(err) +
+                " -- Response: " +
+                JSON.stringify(res)
+            );
+            const returnJson = {
+              success: err ? false : true,
+              data: err ? err : res,
+              phone: phone,
+            };
+
+            fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(returnJson),
+            });
+          }
+        );
+      }
+    </script>
+  </body>
+</html>

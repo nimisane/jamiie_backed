@@ -1,0 +1,250 @@
+Phone Verification:
+
+endpoint: /userauth/phone
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565"
+}
+If phone number already exist then
+Response: status code = 409
+
+If its new registration
+Response : status code = 200
+
+
+
+OTP Verfication:
+
+endpoint: /userauth/phoneverication
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565",
+"otp":"5-digit"
+}
+
+If OTP correct then
+Response: status = 200
+
+else 
+response: status = 401
+
+
+
+Resend OTP:
+
+endpoint: /userauth/resendotp
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565",
+"otp":"5-digit"
+}
+
+If otp resent then
+Response: status = 200
+else if otp already verified then
+Response: status = 302
+
+
+Register:
+
+endpoint: /userauth/register
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565",
+"password":"123",
+"email":"nitishrkt@gmail.com",
+"name":"Nitish Sharma",
+"state":"Himachal Pradesh",
+"city":"Raja ka talab",
+"securityNumber":"last 4 digit"
+}
+
+If everything is right then
+Response: status= 200
+
+else 
+Response: status = 401
+
+
+Login:
+
+endpoint: /userauth/login
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565",
+"password":"123"
+}
+
+If credentials are valid then 
+Response: status = 200
+else
+Response:status = 401
+
+
+Forgot Password:
+
+endpoint: /userauth/forgotpassword
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565"
+}
+
+Response: status = 200
+
+
+after otp verification for create new password
+
+endpoint: /userauth/forgotpassword/<phone no.>/
+Request Type: 'PUT'
+data:
+{
+"password":"new password"
+}
+Response: status = 200
+
+
+Logout:
+
+endpoint: /userauth/logout
+
+Request Type: 'POST'
+data:
+{
+"phone":"+919816456565"
+}
+
+Response: status = 200
+
+After this endpoint the token will get deleted from database
+
+
+
+ADMIN SECTION:
+
+Login:
+
+endpoint : /userauth/adminlogin
+
+Request Type: 'POST'
+data:
+{
+    "phone":"+919816456565",
+    "password":"Password"
+}
+
+Response: status = 200
+Token will be sent to the cookies
+
+
+Logout:
+endpoint : /userauth/adminlogout
+
+Request Type: 'POST'
+data:
+{
+    "phone":"+919816456565"
+}
+
+Response: status = 200
+Token and cookies will get deleted
+
+RiskScore :
+
+endpoint: /userauth/riskscore
+Request Type: 'POST'
+data:
+{
+    "phone":"9816456565",
+    "jobAge":"select options",
+    "family":"select options",
+    "age":"select options",
+    "savingMoney":"select options",
+    "loans":"select options",
+    "living":"select options"
+}
+
+
+
+
+
+
+
+
+
+POOL:
+
+
+Create Pool:
+Required Token Auth
+endpoint: pool/createpool
+Request Type: "POST"
+data:
+{
+    "poolOwner":"+919816456565",
+    "poolName":"PoolName",
+    "contributionAmount":"1000000",
+    "deadline":"2000-08-04",
+    "poolType":"Monthly",
+    "totalMember":"10"
+}
+
+Response: status = 200
+
+
+
+Join Pool:
+endpoint: /pool/joinpool
+Request Type: "POST"
+data:
+{
+    "poolId":"8digit pool id",
+    "memberId":"+919816456565"
+}
+
+Response:
+if user already joined the pool 
+status: 405
+
+if maxmember completed:
+{'error':'pool filled'}
+status: 401
+ 
+ otherwise:
+ status = 200
+
+
+ Search Pool:
+ endpoint: /pool/searchpool
+ Request Type:"Post"
+ data:
+ {
+     "poolId":"8 digit string"
+ }
+
+Response:
+if pool exist:
+{
+    "poolId": "f3fe3f60",
+    "poolName": "bsbs",
+    "poolOwner": "+917071006000",
+    "poolAmount": 4994.0,
+    "totalMember": 24,
+    "joinedmember": 0,
+    "deadline": "2020-08-28"
+}
+status=200
+
+
+
+
+
+
+Personal Notes:
+
+django.db.backends.postgresql_psycopg2
