@@ -31,7 +31,7 @@ logging.info('hello world')
 SECRET_KEY = 'xeokp(4b(n3qt#i$j7*y7c#k24^tc5jfmss7+4a7de$!1vrs#+'
 DEBUG = False
 
-ALLOWED_HOSTS = ['jamiie.anukai.com','3.214.31.45']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
