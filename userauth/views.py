@@ -26,6 +26,8 @@ env_file = Path('.') / '.env'
 load_dotenv(dotenv_path=env_file)   
 from payments.utilFunctions import *
 from payments.models import *
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 #OTP GENERATOR
@@ -52,6 +54,7 @@ def ageCalculator(DOB):
     currentYear = datetime.datetime.now()
     age = int(currentYear.year) - birthYear
     return age 
+
 
 def twilioService(phone,otp):
     account_sid = os.getenv('ACCOUNT_SID')
@@ -151,6 +154,7 @@ class Register(APIView):
         except Exception as e:
             print(e)
 
+@method_decorator(csrf_exempt, name='dispatch')
 class Login(APIView):
     authentication_classes = []
     permission_classes=[] 
