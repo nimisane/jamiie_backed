@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'jamiie.settings.DisableCsrfCheck',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -167,3 +168,12 @@ AWS_S3_ACCESS_KEY_ID = 'AKIA3JM6OE3BQG3Z7V4I'
 AWS_S3_SECRET_ACCESS_KEY = 'izXnMyWC6E/nNWsJAzdRVESK2qVfFaaWzoD32IKp' #os.getenv('AWS_S3_SECRET_ACCESS_KEY') # enter your secret access key
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME') 
 AWS_DEFAULT_ACL = 'public-read'
+
+from django.utils.deprecation import MiddlewareMixin
+
+class DisableCsrfCheck(MiddlewareMixin):
+
+    def process_request(self, req):
+        attr = '_dont_enforce_csrf_checks'
+        if not getattr(req, attr, False):
+            setattr(req, attr, True)
